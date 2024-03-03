@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.io.File;
 import java.io.IOException;
 
 @Controller
+@EnableWebMvc
 @RequestMapping("books")
 @PropertySource("classpath:upload_file.properties")
 public class BookController {
@@ -47,8 +49,7 @@ public class BookController {
         book.setAuthor(bookForm.getAuthor());
         book.setPrice(bookForm.getPrice());
         book.setImg(fileName);
-
-
+        bookService.save(book);
         return "redirect:/books";
     }
 
@@ -84,9 +85,9 @@ public class BookController {
         book.setAuthor(bookForm.getAuthor());
         book.setPrice(bookForm.getPrice());
         book.setImg(fileName);
-        bookService.update(book);
+//        bookService.update(book);
         bookService.save(book);
-        model.addAttribute("books", bookService.findAll());
+
 
         return "redirect:/books";
 

@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5c82ea98-637c-4667-9e4a-758413a1dbee" name="Changes" comment="update book">
+    <list default="true" id="5c82ea98-637c-4667-9e4a-758413a1dbee" name="Changes" comment="fix update">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c988c736-1922-43e9-bb08-3178b086b892.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c988c736-1922-43e9-bb08-3178b086b892.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bookorm/controller/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bookorm/controller/BookController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -179,7 +182,8 @@
       <option name="presentableId" value="Default" />
       <updated>1709368540565</updated>
       <workItem from="1709368541689" duration="2654000" />
-      <workItem from="1709429734401" duration="11954000" />
+      <workItem from="1709429734401" duration="11977000" />
+      <workItem from="1709472803864" duration="1840000" />
     </task>
     <task id="LOCAL-00001" summary="config &amp; connect database">
       <option name="closed" value="true" />
@@ -221,7 +225,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709462169426</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="fix update">
+      <option name="closed" value="true" />
+      <created>1709462705665</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1709462705665</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -245,6 +257,7 @@
     <MESSAGE value="delete book" />
     <MESSAGE value="view detail book" />
     <MESSAGE value="update book" />
-    <option name="LAST_COMMIT_MESSAGE" value="update book" />
+    <MESSAGE value="fix update" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix update" />
   </component>
 </project>
