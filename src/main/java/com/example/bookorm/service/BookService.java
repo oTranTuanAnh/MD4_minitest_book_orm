@@ -9,6 +9,7 @@ import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -62,11 +63,19 @@ public class BookService implements IBookService {
 
     @Override
     public Book findById(int id) {
-        return null;
+        String query = "SELECT b FROM Book AS b WHERE b.id = :id";
+        TypedQuery<Book> typedQuery = entityManager.createQuery(query, Book.class);
+        typedQuery.setParameter("id", id);
+        return typedQuery.getSingleResult();
     }
 
     @Override
     public void remove(int id) {
-
+        entityManager.getTransaction().begin();
+        String queryStr = "DELETE FROM Book AS b WHERE b.id = :id";
+        Query query = entityManager.createQuery(queryStr);
+        query.setParameter("id", id);
+        query.executeUpdate();
+        entityManager.getTransaction().commit();
     }
 }

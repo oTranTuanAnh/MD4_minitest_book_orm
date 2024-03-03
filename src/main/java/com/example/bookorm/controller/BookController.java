@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,4 +51,18 @@ public class BookController {
 
         return "redirect:/books";
     }
+
+    @GetMapping("/{id}/delete")
+    public String delete(@PathVariable int id, Model model){
+        model.addAttribute("books", bookService.findById(id));
+        return "delete";
+    }
+    @PostMapping("/delete")
+    public String remove(Book book){
+        bookService.remove(book.getId());
+        return "redirect:/books";
+    }
+
+
+
 }
