@@ -12,4 +12,5 @@ public interface IBookService {
     Book findById(int id);
 
     void remove(int id);
+    void update(Book book);
 }

@@ -78,4 +78,19 @@ public class BookService implements IBookService {
         query.executeUpdate();
         entityManager.getTransaction().commit();
     }
+
+    @Override
+    public void update(Book book) {
+        entityManager.getTransaction().begin();
+        String queryStr = "UPDATE Book AS b SET b.author = :author, b.img = :img, b.name = :name, b.price = :price WHERE b.id = :id";
+        Query query = entityManager.createQuery(queryStr);
+        query.setParameter("id", book.getId());
+        query.setParameter("author", book.getAuthor());
+        query.setParameter("img", book.getImg());
+        query.setParameter("price", book.getPrice());
+        query.setParameter("name", book.getName());
+
+        query.executeUpdate();
+        entityManager.getTransaction().commit();
+    }
 }
