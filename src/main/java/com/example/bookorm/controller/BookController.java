@@ -47,7 +47,7 @@ public class BookController {
         book.setAuthor(bookForm.getAuthor());
         book.setPrice(bookForm.getPrice());
         book.setImg(fileName);
-        bookService.save(book);
+
 
         return "redirect:/books";
     }
@@ -73,7 +73,7 @@ public class BookController {
         return "edit";
     }
     @PostMapping("/update")
-    public String update(BookForm bookForm) throws IOException {
+    public String update(BookForm bookForm, Model model) throws IOException {
         MultipartFile multipartFile = bookForm.getImg();
         String fileName = multipartFile.getOriginalFilename();
         FileCopyUtils.copy(multipartFile.getBytes(), new File(upload+fileName));
@@ -85,6 +85,9 @@ public class BookController {
         book.setPrice(bookForm.getPrice());
         book.setImg(fileName);
         bookService.update(book);
+        bookService.save(book);
+        model.addAttribute("books", bookService.findAll());
+
         return "redirect:/books";
 
     }
