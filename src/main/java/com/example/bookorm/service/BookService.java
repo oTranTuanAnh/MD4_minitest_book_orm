@@ -2,11 +2,14 @@ package com.example.bookorm.service;
 
 import com.example.bookorm.model.Book;
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Service
@@ -26,12 +29,35 @@ public class BookService implements IBookService {
 
     @Override
     public List<Book> findAll() {
-        return null;
+        String query = "SELECT b FROM Book AS b";
+        TypedQuery<Book> typedQuery = entityManager.createQuery(query, Book.class);
+        return typedQuery.getResultList();
+
     }
 
     @Override
     public void save(Book book) {
-
+        Transaction transaction = null;
+        Book origin;
+        if (book.getId() == 0) {
+            origin = new Book();
+        } else {
+            origin = findById(book.getId());
+        }
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+            origin.setName(book.getName());
+            origin.setAuthor(book.getAuthor());
+            origin.setPrice(book.getPrice());
+            origin.setImg(book.getImg());
+            session.saveOrUpdate(origin);
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        }
     }
 
     @Override

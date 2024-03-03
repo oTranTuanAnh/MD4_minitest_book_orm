@@ -1,20 +1,53 @@
 package com.example.bookorm.controller;
 
+import com.example.bookorm.model.Book;
+import com.example.bookorm.model.BookForm;
 import com.example.bookorm.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("books")
+@PropertySource("classpath:upload_file.properties")
 public class BookController {
     @Autowired
     private IBookService bookService;
+    @Value("${upload}")
+    private String upload;
     @GetMapping("")
-    public String home(){
-        bookService.findAll();
-
+    public String home(Model model){
+        model.addAttribute("books", bookService.findAll());
         return "index";
+    }
+    @GetMapping("/create")
+    public String create(Model model){
+        model.addAttribute("book", new BookForm());
+        return "create";
+    }
+    @PostMapping("/save")
+    public String save(BookForm bookForm) throws IOException {
+        MultipartFile multipartFile = bookForm.getImg();
+        String fileName = multipartFile.getOriginalFilename();
+        FileCopyUtils.copy(multipartFile.getBytes(), new File(upload+fileName));
+
+        Book book = new Book();
+        book.setName(bookForm.getName());
+        book.setAuthor(bookForm.getAuthor());
+        book.setPrice(bookForm.getPrice());
+        book.setImg(fileName);
+        bookService.save(book);
+
+        return "redirect:/books";
     }
 }
